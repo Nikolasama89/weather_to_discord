@@ -1,6 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
+from discord_webhook import DiscordWebhook
 
 load_dotenv()
 
@@ -19,9 +20,13 @@ response.raise_for_status()
 data = response.json()
 city = data["location"]["name"]
 temperature = data["current"]["temp_c"]
-print(f"Current temperature for {city}:\n{temperature} Celsius")
+message = f"Current temperature for {city}:\n{temperature} Celsius"
 
-# TODO: BUILD THE WEBHOOK USING: discordwebhook.py
+# Creating the Webhook
+webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1289636312608931953/EmgQd0M2wAABU1nciB1nlXj9_kIzgKVT5Yt9sB1WrTGvJzFoZVkOaVu0bNoPyuL3IfQk",
+                         content=message)
+response = webhook.execute()
+
 
 
 
