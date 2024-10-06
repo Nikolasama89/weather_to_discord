@@ -1,9 +1,7 @@
 import os
-import time
 import requests
 from dotenv import load_dotenv
 from discord_webhook import DiscordWebhook
-import datetime
 
 
 load_dotenv()
@@ -25,19 +23,8 @@ city = data["location"]["name"]
 temperature = data["current"]["temp_c"]
 message = f"Current temperature for {city}:\n{temperature} Celsius"
 
-bot_active = True
 
-while bot_active:
-    current_time = datetime.datetime.now().strftime('%H:%M:%S')
-    if current_time == "21:00:00":
-        # Creating the Webhook
-        webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1289636312608931953/EmgQd0M2wAABU1nciB1nlXj9_kIzgKVT5Yt9sB1WrTGvJzFoZVkOaVu0bNoPyuL3IfQk",
+# Creating the Webhook
+webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1289636312608931953/EmgQd0M2wAABU1nciB1nlXj9_kIzgKVT5Yt9sB1WrTGvJzFoZVkOaVu0bNoPyuL3IfQk",
                                      content=message)
-        response = webhook.execute()
-        bot_active = False
-    else:
-        time.sleep(1)
-
-
-
-
+response = webhook.execute()
